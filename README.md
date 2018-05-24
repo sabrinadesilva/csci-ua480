@@ -1,2 +1,3 @@
 # csci-ua480
-Class Example Code
+Unity Project to use for class examples and assignments.
+
