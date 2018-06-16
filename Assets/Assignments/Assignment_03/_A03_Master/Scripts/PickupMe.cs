@@ -4,9 +4,13 @@ using UnityEngine;
 
 namespace A03Examples
 {
+    /***
+     * PickupMe component allows user to select this object and 
+     * move it with their gaze
+     ******/
     public class PickupMe : MonoBehaviour
     {
-        public bool grabbed = false;
+        public bool grabbed = false;  // have i been picked up, or not?
         Rigidbody myRb;
         StrobeSelected strobe;
 
@@ -23,20 +27,26 @@ namespace A03Examples
 
         }
 
+        /*
+         * PickupOrDrop
+         * Handle the event when the user clicks the button while 
+         * gaze is on this object.  Toggle grabbed state.
+         */
         public void PickupOrDrop()
         {
             if (grabbed)
             {  // now drop it
-                transform.parent = null;
+                transform.parent = null;  // release the object
                 grabbed = false;
                 myRb.isKinematic = false;  //    .useGravity = true;
                 strobe.trigger = false;
             }
             else
-            {
-                transform.parent = Camera.main.transform;
+            {   // pick it up:
+                // make it move with gaze, keeping same distance from camera
+                transform.parent = Camera.main.transform;  // attach object to camera
                 grabbed = true;
-                strobe.trigger = true;
+                strobe.trigger = true;   // turn on color strobe so we know we have it
                 myRb.isKinematic = true; //  .useGravity = false;
             }
         }
