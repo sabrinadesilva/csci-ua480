@@ -31,9 +31,12 @@ namespace A03Examples
                 return;
             }
 
-            _intialCameraRotationY = Camera.main.transform.rotation.eulerAngles.y;
-            ControllingTransform = MenuCanvasController.Instance.ControllingObject.transform;
-            _initialLocalScale = ControllingTransform.localScale;
+            _intialCameraRotationY = ConvertAngleIn180(Camera.main.transform.rotation.eulerAngles.y);
+            if (MenuCanvasController.Instance.ControllingObject != null)
+            {
+                ControllingTransform = MenuCanvasController.Instance.ControllingObject.transform;
+                _initialLocalScale = ControllingTransform.localScale;
+            }
             _buttonReleased = false;
         }
 
@@ -43,17 +46,21 @@ namespace A03Examples
             _initialLocalScale = Vector3.one;
         }
 
-        private float GetCurrentDeltaRotationFactor()
+        private float ConvertAngleIn180 (float angle) 
         {
-            float currentCameraRotationY;
-            if (Camera.main.transform.rotation.eulerAngles.y > 180.0f)
+            if (angle > 180.0f)
             {
-                currentCameraRotationY = Camera.main.transform.rotation.eulerAngles.y - 360.0f;
+                return angle - 360.0f;
             }
             else
             {
-                currentCameraRotationY = Camera.main.transform.rotation.eulerAngles.y;
+                return angle;
             }
+        }
+
+        private float GetCurrentDeltaRotationFactor()
+        {
+            float currentCameraRotationY = ConvertAngleIn180(Camera.main.transform.rotation.eulerAngles.y);
             float ClampedDeltaAngle = Mathf.Clamp((currentCameraRotationY - _intialCameraRotationY), -MaxAngle, MaxAngle);
             return ClampedDeltaAngle / (MaxAngle * 2) + 0.5f;
         }
