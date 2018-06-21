@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace A04Examples
 {
-    public class PlayerController : MonoBehaviour
+    public class PlayerControllerMoveToTarget : MonoBehaviour
     {
-        public static PlayerController Instance;
+        public static PlayerControllerMoveToTarget Instance;
 
 		private void Awake()
 		{
@@ -21,6 +21,7 @@ namespace A04Examples
         public void MoveToPosition(Vector3 des, float time)
         {
             StopAllCoroutines();
+            des.y = transform.position.y;
             StartCoroutine(MoveToPositionGradually(des, time));
         }
 
