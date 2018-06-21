@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace A04Examples
 {
-    public class PlayerControllerMoveToTarget : MonoBehaviour
+    public class PlayerController : MonoBehaviour
     {
-        public static PlayerControllerMoveToTarget Instance;
+        public static PlayerController Instance;
 
 		private void Awake()
 		{
@@ -17,6 +17,10 @@ namespace A04Examples
                 Destroy(this);
             }
 		}
+
+        public void Translate(Vector3 translation) {
+            transform.Translate(translation, Space.World);
+        }
 
         public void MoveToPosition(Vector3 des, float time)
         {

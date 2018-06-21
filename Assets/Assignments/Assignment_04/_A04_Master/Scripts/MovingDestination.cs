@@ -20,7 +20,7 @@ namespace A04Examples
 
 		void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
         {
-            PlayerControllerMoveToTarget.Instance.MoveToPosition(transform.position, RequiredMovingTime);
+            PlayerController.Instance.MoveToPosition(transform.position, RequiredMovingTime);
         }
 
 		private void OnTriggerEnter(Collider other)
